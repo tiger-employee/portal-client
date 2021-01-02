@@ -5,7 +5,8 @@ import { signIn } from '../../api/auth'
 import messages from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+// import Button from 'react-bootstrap/Button'
+import './sign-in.styles.scss'
 
 class SignIn extends Component {
   constructor () {
@@ -74,12 +75,12 @@ class SignIn extends Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
-            <Button
-              variant="primary"
+            <button
+              className="sign-in-button"
               type="submit"
             >
               Submit
-            </Button>
+            </button>
           </Form>
         </div>
       </div>

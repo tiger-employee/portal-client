@@ -1,0 +1,11 @@
+.sign-in-button {
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background: lightsteelblue;
+
+    &:hover{
+        background: steelblue;
+        color: white;
+    }
+}
