@@ -1,24 +1,17 @@
 import React, { useState } from 'react'
 import InputEmoji from 'react-input-emoji'
+// import { Editor } from '@tinymce/tinymce-react';
 import './home.scss'
 
 export default function Home () {
-  const [text, setText] = useState('')
-  const [message, setMessage] = useState([])
-
-  function handleOnEnter (text) {
-    setText(text)
-    setMessage(text)
-  }
+  const [message, setMessage] = useState('')
 
   return (
     <div>
       <div className='chat-content'>{message}</div>
       <InputEmoji
-        value={text}
-        onChange={setText}
         cleanOnEnter
-        onEnter={handleOnEnter}
+        onEnter={setMessage}
         placeholder='Type a message'
       />
     </div>
