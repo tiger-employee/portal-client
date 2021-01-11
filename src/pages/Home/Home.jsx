@@ -10,7 +10,7 @@ import './home.scss'
 export default function Home (props) {
   const [openSocket, setOpenSocket] = useState({ name: props.user.email })
   //   const [message, setMessage] = useState({ name: props.user.email })
-  const [messageArray, setMessageArray] = useState([])
+  //   const [messageArray, setMessageArray] = useState([])
 
   const sendMessage = (messageContent) => {
     const updatedMessage = { name: props.user.email, text: messageContent, owner: props.user.id }
@@ -23,37 +23,31 @@ export default function Home (props) {
       data: { message: updatedMessage }
     })
       .then(response => {
-        const responseData = { ...response.data.message, name: props.user.email }
-        console.log(responseData)
-        openSocket.emit('sendMessage', responseData)
-        return responseData
-      })
-      .then(data => {
-        console.log(data)
-        setMessageArray([
-          ...messageArray,
-          data])
+        openSocket.emit('sendMessage', response.data.message)
+        const chatContent = document.querySelector('.chat-content')
+        chatContent.append(`${response.data.message.name}:  ${response.data.message.text}`)
+        chatContent.appendChild(document.createElement('br'))
+        return response.data.message
       })
     //   .then(setMessage({}))
   }
 
   // this is sending new user information every time something is sent, but is working for the initial log in.
   useEffect(() => {
-    console.log('I am in here')
     const socket = io('http://localhost:4741')
     setOpenSocket(socket)
-    socket.on('hello', (message) => { console.log(message) })
+    socket.on('newConnection', (message) => { console.log(message) })
     socket.on('message', (msg) => {
-      setMessageArray(msg)
+      console.log(msg)
+      const chatContent = document.querySelector('.chat-content')
+      chatContent.append(`${msg.name}:  ${msg.text}`)
+      chatContent.appendChild(document.createElement('br'))
     })
   }, [])
 
-  console.log(messageArray)
   return (
     <div>
-      <div className='chat-content'>{messageArray.map(item => (
-        <p key={item._id}>{item.name}:{item.text}</p>
-      ))}
+      <div className='chat-content'>
       </div>
       <InputEmoji
         cleanOnEnter
