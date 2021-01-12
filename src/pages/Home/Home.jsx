@@ -4,13 +4,10 @@ import axios from 'axios'
 import apiUrl from '../../apiConfig'
 
 import io from 'socket.io-client'
-import Feed from '../../components/Feed/Feed'
 import './home.scss'
 
 export default function Home (props) {
   const [openSocket, setOpenSocket] = useState({ name: props.user.email })
-  //   const [message, setMessage] = useState({ name: props.user.email })
-  //   const [messageArray, setMessageArray] = useState([])
 
   const sendMessage = (messageContent) => {
     const updatedMessage = { name: props.user.email, text: messageContent, owner: props.user.id }
@@ -29,16 +26,26 @@ export default function Home (props) {
         chatContent.appendChild(document.createElement('br'))
         return response.data.message
       })
-    //   .then(setMessage({}))
   }
 
   // this is sending new user information every time something is sent, but is working for the initial log in.
+  // add sending user information to server to pass it to all users that the person entered
   useEffect(() => {
-    const socket = io('http://localhost:4741')
+    const socket = io('http://localhost:3000')
     setOpenSocket(socket)
-    socket.on('newConnection', (message) => { console.log(message) })
+
+    socket.on('newConnection', (message) => {
+      console.log(message)
+      socket.emit('username', props.user.email)
+    })
+
+    socket.on('email', userInfo => {
+      const chatUsers = document.querySelector('.chat-users')
+      chatUsers.append(`${userInfo}`)
+      chatUsers.appendChild(document.createElement('br'))
+    })
+
     socket.on('message', (msg) => {
-      console.log(msg)
       const chatContent = document.querySelector('.chat-content')
       chatContent.append(`${msg.name}:  ${msg.text}`)
       chatContent.appendChild(document.createElement('br'))
@@ -47,14 +54,18 @@ export default function Home (props) {
 
   return (
     <div>
-      <div className='chat-content'>
+      <div className='chat-container'>
+        <div className='chat-content'>
+        </div>
+        <div className='chat-users'>
+        </div>
       </div>
       <InputEmoji
         cleanOnEnter
         onEnter={sendMessage}
         placeholder='Type a message'
       />
-      <Feed user={props.user}/>
+      <button onClick={() => openSocket.close()}></button>
     </div>
   )
 }
