@@ -40,12 +40,11 @@ export default function Home (props) {
     console.log('i am being used')
     const socket = io('http://localhost:3000')
     setOpenSocket(socket)
+    socket.emit('username', props.user.email)
 
     socket.on('newConnection', (message) => {
       console.log(message)
     })
-
-    socket.emit('username', props.user.email)
 
     socket.on('email', userArr => {
       const chatUsers = document.querySelector('.chat-users')
