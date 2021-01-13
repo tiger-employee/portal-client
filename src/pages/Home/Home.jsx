@@ -11,7 +11,8 @@ export default function Home (props) {
 
   const handleDisconnect = () => {
     console.log(openSocket)
-    openSocket.disconnect('disconnectUser')
+    openSocket.emit('disconnectUser', props.user.email)
+    // openSocket.disconnect()
   }
 
   const sendMessage = (messageContent) => {
@@ -36,13 +37,15 @@ export default function Home (props) {
   // this is sending new user information every time something is sent, but is working for the initial log in.
   // add sending user information to server to pass it to all users that the person entered
   useEffect(() => {
+    console.log('i am being used')
     const socket = io('http://localhost:3000')
     setOpenSocket(socket)
 
     socket.on('newConnection', (message) => {
       console.log(message)
-      socket.emit('username', props.user.email)
     })
+
+    socket.emit('username', props.user.email)
 
     socket.on('email', userArr => {
       const chatUsers = document.querySelector('.chat-users')
@@ -55,16 +58,25 @@ export default function Home (props) {
       })
     })
 
+    socket.on('addUserToChat', email => {
+      const chatUsers = document.querySelector('.chat-users')
+      const chatUserNode = document.createElement('p')
+      chatUserNode.setAttribute('id', `${email}`)
+      const chatUserText = document.createTextNode(`${email}`)
+      chatUserNode.appendChild(chatUserText)
+      chatUsers.append(chatUserNode)
+    })
+
     socket.on('message', (msg) => {
       const chatContent = document.querySelector('.chat-content')
       chatContent.append(`${msg.name}:  ${msg.text}`)
       chatContent.appendChild(document.createElement('br'))
     })
-
-    socket.on('disconnected', (email) => {
+    socket.on('disconnectUser', (email) => {
       console.log('disconnect!')
-      const userToRemove = document.querySelector(`#${email}`)
+      const userToRemove = document.getElementById(`${email}`)
       userToRemove.remove()
+      socket.disconnect()
     })
   }, [])
 
