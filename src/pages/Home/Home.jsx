@@ -9,6 +9,11 @@ import './home.scss'
 export default function Home (props) {
   const [openSocket, setOpenSocket] = useState({ name: props.user.email })
 
+  const handleDisconnect = () => {
+    console.log(openSocket)
+    openSocket.disconnect('disconnectUser')
+  }
+
   const sendMessage = (messageContent) => {
     const updatedMessage = { name: props.user.email, text: messageContent, owner: props.user.id }
     axios({
@@ -39,16 +44,27 @@ export default function Home (props) {
       socket.emit('username', props.user.email)
     })
 
-    socket.on('email', userInfo => {
+    socket.on('email', userArr => {
       const chatUsers = document.querySelector('.chat-users')
-      chatUsers.append(`${userInfo}`)
-      chatUsers.appendChild(document.createElement('br'))
+      userArr.forEach((user) => {
+        const chatUserNode = document.createElement('p')
+        chatUserNode.setAttribute('id', `${user}`)
+        const chatUserText = document.createTextNode(`${user}`)
+        chatUserNode.appendChild(chatUserText)
+        chatUsers.append(chatUserNode)
+      })
     })
 
     socket.on('message', (msg) => {
       const chatContent = document.querySelector('.chat-content')
       chatContent.append(`${msg.name}:  ${msg.text}`)
       chatContent.appendChild(document.createElement('br'))
+    })
+
+    socket.on('disconnected', (email) => {
+      console.log('disconnect!')
+      const userToRemove = document.querySelector(`#${email}`)
+      userToRemove.remove()
     })
   }, [])
 
@@ -65,7 +81,7 @@ export default function Home (props) {
         onEnter={sendMessage}
         placeholder='Type a message'
       />
-      <button onClick={() => openSocket.close()}></button>
+      <button onClick={handleDisconnect}>Disconnect</button>
     </div>
   )
 }
