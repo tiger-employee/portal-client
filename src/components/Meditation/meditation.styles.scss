@@ -2,5 +2,14 @@
   border-radius: 5px;
   border: 2px solid black;
   box-shadow: 5px 5px 10px silver;
-  padding: 10px;
+  padding: 25px;
+  width: 400px;
+
+  .form-input,
+  .form-label {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    padding: 5px;
+  }
 }

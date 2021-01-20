@@ -5,9 +5,18 @@ const Meditation = () => {
   return (
     <div className='meditation-container'>This is the meditation app
       <form>
-        <input type='date'></input>
-        <input type='text'></input>
-        <input type='text'></input>
+        <label className='form-label'>Date:</label>
+        <input type='date' className='form-input'></input>
+        <label className='form-label'>Duration in minutes:</label>
+        <input type='text' className='form-input'></input>
+        <label className='form-label'>Style of meditation:</label>
+        <input type='text' className='form-input'></input>
+        <label className='form-label'>Anxiety levels before:</label>
+        <input type='number' className='form-input'></input>
+        <label className='form-label'>Anxiety levels after:</label>
+        <input type='number' className='form-input'></input>
+        <label className='form-label'>Comments:</label>
+        <textarea className='form-input'></textarea>
       </form>
     </div>
   )
