@@ -10,13 +10,13 @@ const Meditation = () => {
         <label className='form-label'>Duration in minutes:</label>
         <input type='text' className='form-input'></input>
         <label className='form-label'>Style of meditation:</label>
-        <input type='text' className='form-input'></input>
+        <input type='text' className='form-input' size={30}></input>
         <label className='form-label'>Anxiety levels before:</label>
         <input type='number' className='form-input'></input>
         <label className='form-label'>Anxiety levels after:</label>
         <input type='number' className='form-input'></input>
         <label className='form-label'>Comments:</label>
-        <textarea className='form-input'></textarea>
+        <textarea className='form-input' cols={30}></textarea>
       </form>
     </div>
   )
