@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Profile = () => {
-    return(
-      <div>This is the profile page.</div>
-    )
-  }
+const Profile = ({ user }) => {
+  return (
+    <div>This is {user.email} profile page.</div>
+  )
+}
 
 export default Profile
