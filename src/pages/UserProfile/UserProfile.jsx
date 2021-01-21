@@ -4,6 +4,7 @@ import apiUrl from '../../apiConfig.js'
 import Quote from '../../components/Quote/Quote'
 import BreakTimer from '../../components/BreakTimer/BreakTimer'
 import Meditation from '../../components/Meditation/Meditation'
+import './user-profile.styles.scss'
 
 const Profile = ({ user }) => {
   const [meditations, setMeditations] = useState([])
