@@ -22,7 +22,7 @@ const BreakTimer = () => {
   }
 
   return (
-    <div className='break-timer'>This is the break timer: {time}
+    <div className='break-timer'>Time until your next break... {time}
       <button onClick={() => startTimer(10)}>Click</button>
     </div>
   )

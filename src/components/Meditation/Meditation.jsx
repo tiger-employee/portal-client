@@ -3,7 +3,7 @@ import './meditation.styles.scss'
 
 const Meditation = () => {
   return (
-    <div className='meditation-container'>This is the meditation app
+    <div className='meditation-container'>Did you meditate today?
       <form>
         <label className='form-label'>Date:</label>
         <input type='date' className='form-input'></input>
