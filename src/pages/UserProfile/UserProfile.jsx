@@ -8,7 +8,7 @@ const Profile = ({ user }) => {
     <div>This is {user.email} profile page.
       <Quote/>
       <BreakTimer/>
-      <Meditation/>
+      <Meditation user={user}/>
     </div>
   )
 }
