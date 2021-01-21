@@ -1,8 +1,9 @@
 import React from 'react'
+import './quote.styles.scss'
 
 const Quote = () => {
   return (
-    <div>This is the random quote</div>
+    <div className='quote-container'>This is the random quote</div>
   )
 }
 
