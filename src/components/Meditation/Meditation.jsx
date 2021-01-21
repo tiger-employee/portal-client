@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from 'react-bootstrap'
 import './meditation.styles.scss'
 
 const Meditation = () => {
@@ -17,6 +18,7 @@ const Meditation = () => {
         <input type='number' className='form-input'></input>
         <label className='form-label'>Comments:</label>
         <textarea className='form-input' cols={30}></textarea>
+        <Button className='add-meditation-button'>Add</Button>
       </form>
     </div>
   )

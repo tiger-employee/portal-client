@@ -14,4 +14,16 @@
     text-align: center;
     padding: 5px;
   }
+  .add-meditation-button {
+    margin-top: 15px;
+    background: silver;
+    color: black;
+    border: none;
+
+    &:hover {
+     background: lightgray;
+     color: black;
+    }
+  }
+  
 }
