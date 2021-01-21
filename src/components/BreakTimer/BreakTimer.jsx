@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './break-timer.styles.scss'
 
 const BreakTimer = () => {
   const [ time, setTime ] = useState('')
@@ -21,8 +22,7 @@ const BreakTimer = () => {
   }
 
   return (
-    <div>This is the break timer: {time}
-      <p id='time'></p>
+    <div className='break-timer'>This is the break timer: {time}
       <button onClick={() => startTimer(10)}>Click</button>
     </div>
   )
