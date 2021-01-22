@@ -19,11 +19,12 @@
     margin-top: 15px;
     background: silver;
     color: black;
-    border: none;
+    border: 2px black solid;
 
     &:hover {
      background: lightgray;
      color: black;
+     border: 2px black solid;
     }
   }
   
