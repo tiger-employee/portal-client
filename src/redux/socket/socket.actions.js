@@ -1,12 +1,11 @@
-import { Socket } from 'socket.io-client'
 import SocketActionTypes from './socket.types'
 
-export const disconnectSocket = () => ({
+export const disconnectSocket = (disconnectedSocket) => ({
   type: SocketActionTypes.DISCONNECT_SOCKET,
-  payload: connectedSocket
+  payload: disconnectedSocket
 })
 
-export const connectSocket = () => ({
+export const connectSocket = (connectedSocket) => ({
   type: SocketActionTypes.CONNECT_SOCKET,
   payload: connectedSocket
 })

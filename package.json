@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.5.0",
     "@tinymce/tinymce-react": "^3.8.4",
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",

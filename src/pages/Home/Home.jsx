@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import InputEmoji from 'react-input-emoji'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
+import { useDispatch } from 'react-redux'
 
 import io from 'socket.io-client'
 import './home.scss'
 
-export default function Home (props) {
+const Home = (props) => {
   const [openSocket, setOpenSocket] = useState({ name: props.user.email })
+  const dispatch = useDispatch()
 
   const handleDisconnect = () => {
     console.log(openSocket)
@@ -40,6 +42,7 @@ export default function Home (props) {
     console.log('i am being used')
     const socket = io('http://localhost:3000')
     setOpenSocket(socket)
+    dispatch({ type: 'connectSocket', payload: socket })
     socket.emit('username', props.user.email)
 
     socket.on('newConnection', (message) => {
@@ -96,3 +99,9 @@ export default function Home (props) {
     </div>
   )
 }
+
+// const mapStateToProps = {
+//   openSocket: openSocket
+// }
+
+export default Home
