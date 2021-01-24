@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
-import userReducer from './user/user.reducer'
+// import userReducer from './user/user.reducer'
 import socketReducer from './socket/socket.reducer'
 
 const rootReducer = combineReducers({
-  user: userReducer,
+  // user: userReducer,
   socket: socketReducer
 })
 
