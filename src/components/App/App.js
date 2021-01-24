@@ -17,9 +17,14 @@ class App extends Component {
 
     this.state = {
       user: null,
-      msgAlerts: []
+      msgAlerts: [],
+      openSocket: null
     }
   }
+
+  handleSocket = (socket) => (
+    this.setState({ openSocket: socket })
+  )
 
   setUser = user => this.setState({ user })
 
@@ -30,11 +35,11 @@ class App extends Component {
   }
 
   render () {
-    const { msgAlerts, user } = this.state
-
+    const { msgAlerts, user, openSocket } = this.state
+    console.log(this.state)
     return (
       <Fragment>
-        <Header user={user} />
+        <Header user={user} socket={openSocket}/>
         {msgAlerts.map((msgAlert, index) => (
           <AutoDismissAlert
             key={index}
@@ -51,7 +56,7 @@ class App extends Component {
             <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
           <AuthenticatedRoute user={user} path='/home' render={() => (
-            <Home msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
+            <Home msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} handleSocket={this.handleSocket} />
           )} />
           <AuthenticatedRoute user={user} path='/profile' render={() => (
             <Profile msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
