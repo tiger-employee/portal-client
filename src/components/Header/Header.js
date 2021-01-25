@@ -4,14 +4,10 @@ import Navbar from 'react-bootstrap/Navbar'
 
 import './header.styles.scss'
 
-const handleDisconnect = () => {
-  console.log('disconnect')
-}
-
 const authenticatedOptions = (
   <Fragment>
     <Nav.Link href="#home">Home</Nav.Link>
-    <Nav.Link href="#profile" onClick={handleDisconnect}>Profile</Nav.Link>
+    <Nav.Link href="#profile">Profile</Nav.Link>
     <Nav.Link href="#change-password">Change Password</Nav.Link>
     <Nav.Link href="#sign-out">Sign Out</Nav.Link>
   </Fragment>
@@ -24,7 +20,7 @@ const unauthenticatedOptions = (
   </Fragment>
 )
 
-const Header = ({ user, openSocket }) => {
+const Header = ({ user }) => {
   return (
     <Navbar className='navbar' expand="md">
       <Navbar.Brand href="#">
