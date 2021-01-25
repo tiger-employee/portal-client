@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import InputEmoji from 'react-input-emoji'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
+import { useImmer } from 'use-immer'
 
 import io from 'socket.io-client'
 import './home.scss'
 
 const Home = (props) => {
   const [openSocket, setOpenSocket] = useState({ name: props.user.email })
+  const [messageArray, setMessageArray] = useImmer([])
   console.log(props)
 
   const sendMessage = (messageContent) => {
@@ -22,9 +24,12 @@ const Home = (props) => {
     })
       .then(response => {
         openSocket.emit('sendMessage', response.data.message)
-        const chatContent = document.querySelector('.chat-content')
-        chatContent.append(`${response.data.message.name}:  ${response.data.message.text}`)
-        chatContent.appendChild(document.createElement('br'))
+        setMessageArray(draft => {
+          draft.push(response.data.message)
+        })
+        // const chatContent = document.querySelector('.chat-content')
+        // chatContent.append(`${response.data.message.name}:  ${response.data.message.text}`)
+        // chatContent.appendChild(document.createElement('br'))
         return response.data.message
       })
   }
@@ -62,9 +67,13 @@ const Home = (props) => {
     })
 
     socket.on('message', (msg) => {
-      const chatContent = document.querySelector('.chat-content')
-      chatContent.append(`${msg.name}:  ${msg.text}`)
-      chatContent.appendChild(document.createElement('br'))
+      setMessageArray(draft => {
+        draft.push(msg)
+      })
+      console.log(messageArray)
+      // const chatContent = document.querySelector('.chat-content')
+      // chatContent.append(`${msg.name}:  ${msg.text}`)
+      // chatContent.appendChild(document.createElement('br'))
     })
     socket.on('disconnected', (email) => {
       const userToRemove = document.getElementById(`${email}`)
@@ -73,10 +82,16 @@ const Home = (props) => {
     return () => socket.disconnect()
   }, [])
 
+  const messages = messageArray.map((messageObj) => {
+    return (
+      <div key={messageObj._id}>{messageObj.name}:  {messageObj.text}<br/></div>
+    )
+  })
   return (
     <div>
       <div className='chat-container'>
         <div className='chat-content'>
+          {messages}
         </div>
         <div className='chat-users'>
         </div>
