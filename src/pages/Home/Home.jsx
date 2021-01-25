@@ -10,7 +10,7 @@ import './home.scss'
 const Home = (props) => {
   const [openSocket, setOpenSocket] = useState({ name: props.user.email })
   const [messageArray, setMessageArray] = useImmer([])
-  console.log(props)
+  const [userArray, setUserArray] = useImmer([])
 
   const sendMessage = (messageContent) => {
     const updatedMessage = { name: props.user.email, text: messageContent, owner: props.user.id }
@@ -27,9 +27,6 @@ const Home = (props) => {
         setMessageArray(draft => {
           draft.push(response.data.message)
         })
-        // const chatContent = document.querySelector('.chat-content')
-        // chatContent.append(`${response.data.message.name}:  ${response.data.message.text}`)
-        // chatContent.appendChild(document.createElement('br'))
         return response.data.message
       })
   }
@@ -46,24 +43,14 @@ const Home = (props) => {
       console.log(message)
     })
 
-    socket.on('email', userArr => {
-      const chatUsers = document.querySelector('.chat-users')
-      userArr.forEach((user) => {
-        const chatUserNode = document.createElement('p')
-        chatUserNode.setAttribute('id', `${user}`)
-        const chatUserText = document.createTextNode(`${user}`)
-        chatUserNode.appendChild(chatUserText)
-        chatUsers.append(chatUserNode)
-      })
-    })
+    socket.on('email', userArr => setUserArray(draft => {
+      draft.push(...userArr)
+    }))
 
     socket.on('addUserToChat', email => {
-      const chatUsers = document.querySelector('.chat-users')
-      const chatUserNode = document.createElement('p')
-      chatUserNode.setAttribute('id', `${email}`)
-      const chatUserText = document.createTextNode(`${email}`)
-      chatUserNode.appendChild(chatUserText)
-      chatUsers.append(chatUserNode)
+      setUserArray(draft => {
+        draft.push(email)
+      })
     })
 
     socket.on('message', (msg) => {
@@ -71,13 +58,13 @@ const Home = (props) => {
         draft.push(msg)
       })
       console.log(messageArray)
-      // const chatContent = document.querySelector('.chat-content')
-      // chatContent.append(`${msg.name}:  ${msg.text}`)
-      // chatContent.appendChild(document.createElement('br'))
     })
     socket.on('disconnected', (email) => {
-      const userToRemove = document.getElementById(`${email}`)
-      userToRemove.remove()
+      const index = userArray.findIndex(element => element === email)
+      setUserArray(draft => {
+        draft.splice(index, 1)
+      }
+      )
     })
     return () => socket.disconnect()
   }, [])
@@ -87,6 +74,12 @@ const Home = (props) => {
       <div key={messageObj._id}>{messageObj.name}:  {messageObj.text}<br/></div>
     )
   })
+
+  const users = userArray.map((user) => {
+    return (
+      <div key={user}>{user}<br/></div>
+    )
+  })
   return (
     <div>
       <div className='chat-container'>
@@ -94,6 +87,7 @@ const Home = (props) => {
           {messages}
         </div>
         <div className='chat-users'>
+          {users}
         </div>
       </div>
       <InputEmoji
