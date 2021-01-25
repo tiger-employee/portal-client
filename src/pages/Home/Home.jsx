@@ -32,14 +32,9 @@ const Home = (props) => {
   }
 
   useEffect(() => {
-    console.log('i am being used')
     const socket = io('http://localhost:3000')
     setOpenSocket(socket)
     socket.emit('username', props.user.email)
-
-    socket.on('newConnection', (message) => {
-      console.log(message)
-    })
 
     socket.on('email', userArr => setUserArray(draft => {
       draft.push(...userArr)
@@ -55,8 +50,8 @@ const Home = (props) => {
       setMessageArray(draft => {
         draft.push(msg)
       })
-      console.log(messageArray)
     })
+    
     socket.on('disconnected', (email) => {
       const index = userArray.findIndex(element => element === email)
       setUserArray(draft => {
