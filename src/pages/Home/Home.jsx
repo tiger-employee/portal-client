@@ -31,8 +31,6 @@ const Home = (props) => {
       })
   }
 
-  // this is sending new user information every time something is sent, but is working for the initial log in.
-  // add sending user information to server to pass it to all users that the person entered
   useEffect(() => {
     console.log('i am being used')
     const socket = io('http://localhost:3000')
