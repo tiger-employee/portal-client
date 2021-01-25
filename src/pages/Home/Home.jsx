@@ -9,11 +9,6 @@ import './home.scss'
 const Home = (props) => {
   const [openSocket, setOpenSocket] = useState({ name: props.user.email })
   console.log(props)
-  const handleDisconnect = () => {
-    console.log(openSocket)
-    openSocket.emit('disconnectUser', props.user.email)
-    // openSocket.disconnect()
-  }
 
   const sendMessage = (messageContent) => {
     const updatedMessage = { name: props.user.email, text: messageContent, owner: props.user.id }
@@ -72,12 +67,11 @@ const Home = (props) => {
       chatContent.append(`${msg.name}:  ${msg.text}`)
       chatContent.appendChild(document.createElement('br'))
     })
-    socket.on('disconnectUser', (email) => {
-      console.log('disconnect!')
+    socket.on('disconnected', (email) => {
       const userToRemove = document.getElementById(`${email}`)
       userToRemove.remove()
-      socket.disconnect()
     })
+    return () => socket.disconnect()
   }, [])
 
   return (
@@ -93,13 +87,8 @@ const Home = (props) => {
         onEnter={sendMessage}
         placeholder='Type a message'
       />
-      <button onClick={handleDisconnect}>Disconnect</button>
     </div>
   )
 }
-
-// const mapStateToProps = {
-//   openSocket: openSocket
-// }
 
 export default Home
