@@ -27,7 +27,7 @@ const Feed = (props) => {
     <div>This is the feed, <div dangerouslySetInnerHTML={{ __html: newPost }}></div>
       <form id='feed-text' onSubmit={handleSubmit}>
         <Editor
-          apiKey="c0x3i7pnd4cnrre5k7p24049gaqd8et3ye35ybv6jejs4emf"
+          apiKey= {process.env.REACT_APP_APIKEY}
           value= {newPost}
           init={{ height: 150,
             menubar: false,
