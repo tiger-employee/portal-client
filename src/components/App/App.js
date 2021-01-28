@@ -10,6 +10,7 @@ import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import Home from '../../pages/Home/Home'
 import Profile from '../../pages/UserProfile/UserProfile'
+import Feed from '../../components/Feed/Feed'
 
 class App extends Component {
   constructor () {
@@ -52,6 +53,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/home' render={() => (
             <Home msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/feed' render={() => (
+            <Feed msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/profile' render={() => (
             <Profile msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />

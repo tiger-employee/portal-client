@@ -51,7 +51,6 @@ const Home = (props) => {
         draft.push(msg)
       })
     })
-    
     socket.on('disconnected', (email) => {
       const index = userArray.findIndex(element => element === email)
       setUserArray(draft => {
