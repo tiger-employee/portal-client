@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import apiUrl from '../../apiConfig.js'
+import './feed.styles.scss'
 // import { Editor } from '@tinymce/tinymce-react'
 
 const Feed = ({ user }) => {
@@ -38,14 +39,16 @@ const Feed = ({ user }) => {
 
   return (
     <div>This is the feed, <div>{newPost.text}</div>
-      <form id='feed-text' onSubmit={handleSubmit}>
-        <h2>Recognize a coworker!</h2>
-        <label>Message</label>
-        <textarea className='input-post' onChange={handleEditorChange} name="text" required></textarea>
-        <label>Recipient:  </label>
-        <input className='input-recipient' name="recipient" onChange={handleEditorChange} required></input>
-        <button type='submit'>Recognize {newPost.recipient}</button>
-      </form>
+      <div className='new-message-form'>
+        <form id='feed-text' onSubmit={handleSubmit}>
+          <h2>Recognize a coworker!</h2>
+          <label>Message</label>
+          <textarea className='input-post' onChange={handleEditorChange} name="text" required></textarea>
+          <label>Recipient:  </label>
+          <input className='input-recipient' name="recipient" onChange={handleEditorChange} required></input>
+          <button type='submit'>Recognize {newPost.recipient}</button>
+        </form>
+      </div>
     </div>
   )
 }
