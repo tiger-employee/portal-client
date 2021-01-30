@@ -5,10 +5,53 @@ import Quote from '../../components/Quote/Quote'
 import BreakTimer from '../../components/BreakTimer/BreakTimer'
 import Meditation from '../../components/Meditation/Meditation'
 import './user-profile.styles.scss'
+import S3FileUpload from 'react-s3'
 
 const Profile = ({ user }) => {
   const [meditations, setMeditations] = useState([])
+  const [getImage, setGetImage] = useState()
 
+  const secret = process.env.REACT_APP_SECRET_KEY
+  const access = process.env.REACT_APP_ACCESS_KEY
+
+  const config = {
+    bucketName: 'employee-portal-profile-image',
+    region: 'us-east-2',
+    secretAccessKey: secret,
+    accessKeyId: access
+  }
+
+  const onFileChange = event => {
+    S3FileUpload.uploadFile(event.target.files[0], config)
+      .then((data) => {
+        setGetImage(data.location)
+        return axios({
+          url: `${apiUrl}/users/${user._id}`,
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Token token=${user.token}`
+          },
+          data: {
+            profileImage: data.location
+          }
+        })
+      })
+      .catch((err) => {
+        alert(err)
+      })
+  }
+
+  // const onFileSubmit = event => {
+  //   event.preventDefault()
+  //   console.log(getImage)
+  //   const data = getImage
+  //   axios({
+  //     url: `${apiUrl}/image-upload`,
+  //     method: 'POST',
+  //     data: data
+  //   })
+  //     .then((res) => console.log(res))
+  // }
   useEffect(() => {
     axios({
       url: `${apiUrl}/meditations/`,
@@ -20,13 +63,16 @@ const Profile = ({ user }) => {
       .then((res) => setMeditations(res.data.meditations))
   }, []
   )
-
   return (
     <div className='profile-container'>{user.email} profile page.
-      You have meditated {meditations.length} times.
-    <Quote/>
-    <BreakTimer/>
-    <Meditation user={user}/>
+      <form id='image-upload'>
+        {getImage ? <img src={getImage} alt="image"/> : ' '}You have meditated {meditations.length} times.
+        <input type="file" onChange={onFileChange} />
+      </form>
+      {user.profileImage ? <img src={user.profileImage} alt="image" className="profile-image"/> : ' '}
+      <Quote/>
+      <BreakTimer/>
+      <Meditation user={user}/>
     </div>
   )
 }
