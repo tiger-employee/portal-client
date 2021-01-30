@@ -66,7 +66,7 @@ const Profile = ({ user }) => {
   return (
     <div className='profile-container'>{user.email} profile page.
       <form id='image-upload'>
-        {getImage ? <img src={getImage} alt="image"/> : ' '}You have meditated {meditations.length} times.
+        {getImage ? <img src={getImage} alt="image" className="profile-image"/> : ' '}You have meditated {meditations.length} times.
         <input type="file" onChange={onFileChange} />
       </form>
       {user.profileImage ? <img src={user.profileImage} alt="image" className="profile-image"/> : ' '}
