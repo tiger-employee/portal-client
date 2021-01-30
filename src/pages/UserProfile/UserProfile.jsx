@@ -41,17 +41,6 @@ const Profile = ({ user }) => {
       })
   }
 
-  // const onFileSubmit = event => {
-  //   event.preventDefault()
-  //   console.log(getImage)
-  //   const data = getImage
-  //   axios({
-  //     url: `${apiUrl}/image-upload`,
-  //     method: 'POST',
-  //     data: data
-  //   })
-  //     .then((res) => console.log(res))
-  // }
   useEffect(() => {
     axios({
       url: `${apiUrl}/meditations/`,
