@@ -54,11 +54,17 @@ const Profile = ({ user }) => {
   )
   return (
     <div className='profile-container'>
-      {user.profileImage && !getImage ? <img src={user.profileImage} alt="image" className="profile-image"/> : ' '}
-      {user.profileImage && getImage ? <img src={getImage} alt="image" className="profile-image"/> : ' '}
-      {user.email} profile page.
+      <div className='profile-info'>
+        <div className='profile-image'>
+          {user.profileImage && !getImage ? <img src={user.profileImage} alt="image" className="profile-image"/> : ' '}
+          {user.profileImage && getImage ? <img src={getImage} alt="image" className="profile-image"/> : ' '}
+        </div>
+        <div className='profile-data'>
+          {user.email} <br/>
+          Meditated: {meditations.length} times.
+        </div>
+      </div>
       <form id='image-upload'>
-       You have meditated {meditations.length} times.
         <input type="file" onChange={onFileChange} />
       </form>
       <Quote/>
