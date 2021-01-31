@@ -62,6 +62,7 @@ const Profile = ({ user }) => {
         <div className='profile-data'>
           {user.firstName} {user.lastName}<br/>
           {user.email} <br/>
+          {user.role} <br/>
           Meditated: {meditations.length} times. <br/>
           Gratitude given:
         </div>
