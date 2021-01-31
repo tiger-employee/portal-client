@@ -11,6 +11,21 @@
   height: 120px;
   width: auto;
   border-radius: 50%;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+}
+
+.image-holder {
+  margin: 0 auto;
+}
+
+.profile-image-bigger {
+  height: 240px;
+  border-radius: 50%;
 }
 
 .profile-info {
@@ -18,7 +33,7 @@
   padding: 10px;
   border-radius: 5px;
   border: solid black 2px;
-  background-color: lightgoldenrodyellow;
+  background-color: rgba(lightskyblue, 0.2);
   box-shadow: 10px 10px 10px silver;
   margin: 0 auto;
   margin-bottom: 30px;

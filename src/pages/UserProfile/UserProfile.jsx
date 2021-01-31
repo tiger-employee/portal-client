@@ -5,12 +5,16 @@ import Quote from '../../components/Quote/Quote'
 import BreakTimer from '../../components/BreakTimer/BreakTimer'
 import Meditation from '../../components/Meditation/Meditation'
 import noProfileImage from './no-photo-avail.jpg'
+import Modal from 'react-bootstrap/Modal'
 import './user-profile.styles.scss'
 import S3FileUpload from 'react-s3'
 
 const Profile = ({ user }) => {
   const [meditations, setMeditations] = useState([])
   const [getImage, setGetImage] = useState()
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   const secret = process.env.REACT_APP_SECRET_KEY
   const access = process.env.REACT_APP_ACCESS_KEY
@@ -57,9 +61,9 @@ const Profile = ({ user }) => {
     <div className='profile-container'>
       <div className='profile-info'>
         <div className='profile-image'>
-          {!user.profileImage && !getImage ? <img src={noProfileImage} alt="image" className="profile-image"/> : ' '}
-          {user.profileImage && !getImage ? <img src={user.profileImage} alt="image" className="profile-image"/> : ' '}
-          {user.profileImage && getImage ? <img src={getImage} alt="image" className="profile-image"/> : ' '}
+          {!user.profileImage && !getImage ? <img src={noProfileImage} alt="image" className="profile-image" onClick={() => handleShow()}/> : ' '}
+          {user.profileImage && !getImage ? <img src={user.profileImage} alt="image" className="profile-image" onClick={() => handleShow()}/> : ' '}
+          {user.profileImage && getImage ? <img src={getImage} alt="image" className="profile-image" onClick={() => handleShow()}/> : ' '}
         </div>
         <div className='profile-data'>
           {user.firstName} {user.lastName}<br/>
@@ -69,9 +73,19 @@ const Profile = ({ user }) => {
           Gratitude given:
         </div>
       </div>
-      <form id='image-upload'>
-        <input type="file" onChange={onFileChange} />
-      </form>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Profile Pic</Modal.Title>
+        </Modal.Header>
+        <div className='image-holder'>
+          {!user.profileImage && !getImage ? <img src={noProfileImage} alt="image" className="profile-image-bigger"/> : ' '}
+          {user.profileImage && !getImage ? <img src={user.profileImage} alt="image" className="profile-image-bigger"/> : ' '}
+          {user.profileImage && getImage ? <img src={getImage} alt="image" className="profile-image-bigger"/> : ' '}
+        </div>
+        <form id='image-upload'>
+          <input type="file" onChange={onFileChange} />
+        </form>
+      </Modal>
       <Quote/>
       <BreakTimer/>
       <Meditation user={user}/>
