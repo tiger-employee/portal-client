@@ -27,23 +27,27 @@ const Profile = ({ user }) => {
   }
 
   const onFileChange = event => {
-    S3FileUpload.uploadFile(event.target.files[0], config)
-      .then((data) => {
-        setGetImage(data.location)
-        return axios({
-          url: `${apiUrl}/users/${user._id}`,
-          method: 'PATCH',
-          headers: {
-            'Authorization': `Token token=${user.token}`
-          },
-          data: {
-            profileImage: data.location
-          }
+    if (event.target.files[0].type === 'image/jpeg' || event.target.files[0].type === 'image/gif' || event.target.files[0].type === 'image/png') {
+      S3FileUpload.uploadFile(event.target.files[0], config)
+        .then((data) => {
+          setGetImage(data.location)
+          return axios({
+            url: `${apiUrl}/users/${user._id}`,
+            method: 'PATCH',
+            headers: {
+              'Authorization': `Token token=${user.token}`
+            },
+            data: {
+              profileImage: data.location
+            }
+          })
         })
-      })
-      .catch((err) => {
-        alert(err)
-      })
+        .catch((err) => {
+          alert(err)
+        })
+    } else {
+      alert('Please choose an image file')
+    }
   }
 
   useEffect(() => {
