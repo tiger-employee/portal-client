@@ -4,6 +4,7 @@ import apiUrl from '../../apiConfig.js'
 import Quote from '../../components/Quote/Quote'
 import BreakTimer from '../../components/BreakTimer/BreakTimer'
 import Meditation from '../../components/Meditation/Meditation'
+import noProfileImage from './no-photo-avail.jpg'
 import './user-profile.styles.scss'
 import S3FileUpload from 'react-s3'
 
@@ -56,6 +57,7 @@ const Profile = ({ user }) => {
     <div className='profile-container'>
       <div className='profile-info'>
         <div className='profile-image'>
+          {!user.profileImage && !getImage ? <img src={noProfileImage} alt="image" className="profile-image"/> : ' '}
           {user.profileImage && !getImage ? <img src={user.profileImage} alt="image" className="profile-image"/> : ' '}
           {user.profileImage && getImage ? <img src={getImage} alt="image" className="profile-image"/> : ' '}
         </div>
