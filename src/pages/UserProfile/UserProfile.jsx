@@ -60,8 +60,10 @@ const Profile = ({ user }) => {
           {user.profileImage && getImage ? <img src={getImage} alt="image" className="profile-image"/> : ' '}
         </div>
         <div className='profile-data'>
+          {user.firstName} {user.lastName}<br/>
           {user.email} <br/>
-          Meditated: {meditations.length} times.
+          Meditated: {meditations.length} times. <br/>
+          Gratitude given:
         </div>
       </div>
       <form id='image-upload'>
