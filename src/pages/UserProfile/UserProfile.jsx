@@ -82,9 +82,11 @@ const Profile = ({ user }) => {
           {user.profileImage && !getImage ? <img src={user.profileImage} alt="image" className="profile-image-bigger"/> : ' '}
           {user.profileImage && getImage ? <img src={getImage} alt="image" className="profile-image-bigger"/> : ' '}
         </div>
-        <form id='image-upload'>
-          <input type="file" onChange={onFileChange} />
-        </form>
+        <Modal.Footer>
+          <form id='image-upload'>
+            <input type="file" onChange={onFileChange} />
+          </form>
+        </Modal.Footer>
       </Modal>
       <Quote/>
       <BreakTimer/>
