@@ -90,6 +90,7 @@ const Profile = ({ user }) => {
           <form id='image-upload'>
             <input type="file" onChange={onFileChange} />
           </form>
+          <button onClick={handleClose}>Close</button>
         </Modal.Footer>
       </Modal>
       <Quote/>
