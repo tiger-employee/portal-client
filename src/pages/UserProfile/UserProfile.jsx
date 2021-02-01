@@ -8,6 +8,7 @@ import noProfileImage from './no-photo-avail.jpg'
 import Modal from 'react-bootstrap/Modal'
 import './user-profile.styles.scss'
 import S3FileUpload from 'react-s3'
+import PostProfile from '../../components/PostProfile/PostProfile.jsx'
 
 const Profile = ({ user }) => {
   const [meditations, setMeditations] = useState([])
@@ -99,7 +100,8 @@ const Profile = ({ user }) => {
           <BreakTimer/>
           <Meditation user={user}/>
         </div>
-        <div className='right-container'>  Awesome
+        <div className='right-container'>
+          <PostProfile user={user}/>
         </div>
       </div>
     </div>
