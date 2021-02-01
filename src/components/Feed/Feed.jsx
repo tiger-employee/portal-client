@@ -22,16 +22,14 @@ const Feed = ({ user }) => {
   }, [])
   const postsJSX = posts.map(post => {
     return (
-      <div key={post._id}>
-        <Moment format="MM-DD-YYYY">
-          <div>
-            {post.createdAt}
-          </div>
-        </Moment>
-        <div>
+      <div className='recognition-card' key={post._id}>
+        <div className='recognition-card-header'>
+          <Moment format="MM-DD-YYYY">{post.createdAt}</Moment>
+        </div>
+        <div className='recognition-card-text'>
           {post.text}
         </div>
-        <div>
+        <div className='recognition-card-owner'>
           -- ${post.owner}
         </div>
       </div>
