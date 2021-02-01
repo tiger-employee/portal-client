@@ -9,7 +9,7 @@ import Modal from 'react-bootstrap/Modal'
 import './user-profile.styles.scss'
 import S3FileUpload from 'react-s3'
 import PostProfile from '../../components/PostProfile/PostProfile.jsx'
-
+import CreatePost from '../../components/CreatePost/CreatePost'
 const Profile = ({ user }) => {
   const [meditations, setMeditations] = useState([])
   const [getImage, setGetImage] = useState()
@@ -101,6 +101,7 @@ const Profile = ({ user }) => {
           <Meditation user={user}/>
         </div>
         <div className='right-container'>
+          <CreatePost user={user}/>
           <PostProfile user={user}/>
         </div>
       </div>

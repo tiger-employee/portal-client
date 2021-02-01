@@ -18,7 +18,7 @@ const PostProfile = ({ user }) => {
       // }
     })
       .then((res) => setPosts(res.data.posts))
-  })
+  }, [])
 
   const postsJSX = posts.map(post => {
     return (
