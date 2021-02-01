@@ -49,9 +49,8 @@ const CreatePost = ({ user }) => {
           setText= {setText}
           className="create-message-textarea"
           name="content"
-          rows={2}
           placeholder=""
-          editValue= {newPost.content}
+          editValue= {newPost.text}
           handleChange = {handleContentChange}
         />
         <button>Recognize them!</button>

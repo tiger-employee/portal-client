@@ -23,7 +23,7 @@ const EmojiTextArea = ({ handleChange, setText, editValue }) => {
   }
   return (
     <div className = 'Emoji-Textarea'>
-      <textarea onChange = {handleText} value = {editValue} name='content'></textarea>
+      <textarea rows={2} onChange = {handleText} value = {editValue} name='content'></textarea>
       <div className = 'Emoji'>
         { showEmojis
           ? <div className = 'Emoji-Grid'>
