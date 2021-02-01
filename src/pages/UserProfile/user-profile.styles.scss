@@ -30,6 +30,7 @@
 
 .profile-info {
   width: 50%;
+  min-width: 225px;
   padding: 10px;
   border-radius: 5px;
   border: solid black 2px;
@@ -42,4 +43,13 @@
 
 .profile-data {
   margin-top: 10px;
+}
+
+.profile-main {
+  display: flex;
+  flex-direction: row;
+}
+
+.left-container {
+  width: 40%;
 }

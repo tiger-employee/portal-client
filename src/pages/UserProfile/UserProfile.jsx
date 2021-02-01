@@ -94,8 +94,14 @@ const Profile = ({ user }) => {
         </Modal.Footer>
       </Modal>
       <Quote/>
-      <BreakTimer/>
-      <Meditation user={user}/>
+      <div className='profile-main'>
+        <div className='left-container'>
+          <BreakTimer/>
+          <Meditation user={user}/>
+        </div>
+        <div className='right-container'>  Awesome
+        </div>
+      </div>
     </div>
   )
 }
