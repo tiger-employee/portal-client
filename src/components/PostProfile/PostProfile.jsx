@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './post-profile.styles.scss'
+import Moment from 'react-moment'
 import axios from 'axios'
 import apiUrl from '../../apiConfig.js'
 
@@ -23,9 +24,11 @@ const PostProfile = ({ user }) => {
   const postsJSX = posts.map(post => {
     return (
       <div key={post._id}>
-        <div>
-          {post.createdAt}
-        </div>
+        <Moment format="MM-DD-YYYY">
+          <div>
+            {post.createdAt}
+          </div>
+        </Moment>
         <div>
           {post.text}
         </div>

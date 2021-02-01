@@ -1,5 +1,11 @@
 .post-container {
   width: 90%;
   padding: 10px;
-  height: 90%;
+  border-radius: 5px;
+  border: gray 2px solid;
+  box-shadow: 10px 10px 10px silver;
+  overflow: scroll;
+  margin: 0 auto;
+  background: lightcyan;
+  height: auto;
 }

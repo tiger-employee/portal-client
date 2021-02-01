@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import apiUrl from '../../apiConfig.js'
+import Moment from 'react-moment'
 import './feed.styles.scss'
 
 const Feed = ({ user }) => {
@@ -19,17 +20,26 @@ const Feed = ({ user }) => {
     })
       .then((res) => setPosts(res.data.posts))
   }, [])
-  const postsJsx = posts.map(post => {
+  const postsJSX = posts.map(post => {
     return (
       <div key={post._id}>
-        {post.createdAt} <br/>
-        {post.text}
+        <Moment format="MM-DD-YYYY">
+          <div>
+            {post.createdAt}
+          </div>
+        </Moment>
+        <div>
+          {post.text}
+        </div>
+        <div>
+          -- ${post.owner}
+        </div>
       </div>
     )
   })
   return (
     <div>This is the feed
-      {postsJsx}
+      {postsJSX}
     </div>
   )
 }
