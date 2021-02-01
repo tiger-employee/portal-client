@@ -12,6 +12,9 @@ const PostProfile = ({ user }) => {
       method: 'GET',
       headers: {
         Authorization: `Token token=${user.token}`
+      },
+      params: {
+        user: user._id
       }
     })
       .then((res) => setPosts(res.data.posts))
