@@ -6,7 +6,6 @@ import './create-post.stylings.scss'
 
 const CreatePost = ({ user }) => {
   const [newPost, setNewPost] = useState({})
-  const [postId, setPostId] = useState('')
   const [text, setText] = useState('')
   console.log(text)
   const handleContentChange = (text) => {
@@ -34,11 +33,11 @@ const CreatePost = ({ user }) => {
       headers: {
         Authorization: `Token token=${user.token}`
       },
-      data: { newPost }
+      data: {
+        post: newPost
+      }
     })
-      .then((res) => setPostId(res.data.post._id))
       .then(() => setNewPost({}))
-      .then(() => console.log(postId + ' created succesfully'))
   }
 
   return (

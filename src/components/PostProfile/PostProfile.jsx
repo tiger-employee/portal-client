@@ -13,26 +13,23 @@ const PostProfile = ({ user }) => {
       headers: {
         Authorization: `Token token=${user.token}`
       }
-      // params: {
-      //   user: user._id
-      // }
     })
       .then((res) => setPosts(res.data.posts))
   }, [])
 
   const postsJSX = posts.map(post => {
     return (
-      `<div>
+      <div key={post._id}>
         <div>
-          ${post.createdAt}
+          {post.createdAt}
         </div>
         <div>
-          ${post.text}
+          {post.text}
         </div>
         <div>
           -- ${post.owner}
         </div>
-      </div>`
+      </div>
     )
   })
 

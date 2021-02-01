@@ -10,10 +10,12 @@ import './user-profile.styles.scss'
 import S3FileUpload from 'react-s3'
 import PostProfile from '../../components/PostProfile/PostProfile.jsx'
 import CreatePost from '../../components/CreatePost/CreatePost'
+
 const Profile = ({ user }) => {
   const [meditations, setMeditations] = useState([])
   const [getImage, setGetImage] = useState()
   const [show, setShow] = useState(false)
+
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
