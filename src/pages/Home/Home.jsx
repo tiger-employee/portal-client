@@ -82,11 +82,13 @@ const Home = (props) => {
           {users}
         </div>
       </div>
-      <InputEmoji
-        cleanOnEnter
-        onEnter={sendMessage}
-        placeholder='Type a message'
-      />
+      <div className='emoji-input'>
+        <InputEmoji
+          cleanOnEnter
+          onEnter={sendMessage}
+          placeholder='Type a message'
+        />
+      </div>
     </div>
   )
 }

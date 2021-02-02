@@ -1,5 +1,6 @@
 .chat-container {
     margin-top: 100px;
+    margin-bottom: 15px;
     height: 600px;
     width: 100%;
     border: solid gray 2px;
@@ -26,5 +27,13 @@
         padding: 10px;
       }
     }
+}
+
+.emoji-input {
+  padding: 10px;
+  background-color: rgba(102, 153, 244, 0.3);
+  border-radius: 10px;
+  border: solid gray 2px;
+  box-shadow: 10px 10px 10px silver;
 }
 
