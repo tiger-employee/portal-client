@@ -33,7 +33,7 @@ const PostProfile = ({ user }) => {
           {post.text}
         </div>
         <div>
-          -- ${post.owner}
+          -{`${post.owner.firstName} ${post.owner.lastName}`}
         </div>
       </div>
     )

@@ -20,6 +20,7 @@ const Feed = ({ user }) => {
     })
       .then((res) => setPosts(res.data.posts))
   }, [])
+
   const postsJSX = posts.map(post => {
     return (
       <div className='recognition-card' key={post._id}>
@@ -30,7 +31,7 @@ const Feed = ({ user }) => {
           {post.text}
         </div>
         <div className='recognition-card-owner'>
-          -- ${post.owner}
+          -{`${post.owner.firstName} ${post.owner.lastName}`}
         </div>
       </div>
     )
