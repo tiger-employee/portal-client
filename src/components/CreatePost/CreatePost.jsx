@@ -58,7 +58,7 @@ const CreatePost = ({ user }) => {
     <div className='create-post-container'>
       Recognize someone <br/>
       <form id='create-post' onSubmit={handleSubmit}>
-        <select name='recipient' defaultValue={'DEFAULT'} onChange={handleChange}>
+        <select className='post-recipient' name='recipient' defaultValue={'DEFAULT'} onChange={handleChange}>
           <option value='DEFAULT' disabled hidden>Choose person to recognize!</option>
           {userOptionsJsx}
         </select>
