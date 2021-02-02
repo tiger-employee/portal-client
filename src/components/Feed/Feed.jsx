@@ -3,6 +3,8 @@ import axios from 'axios'
 import apiUrl from '../../apiConfig.js'
 import Moment from 'react-moment'
 import './feed.styles.scss'
+import CreatePost from '../CreatePost/CreatePost.jsx'
+import noProfileImage from '../../pages/UserProfile/no-photo-avail.jpg'
 
 const Feed = ({ user }) => {
   const [posts, setPosts] = useState([])
@@ -37,7 +39,13 @@ const Feed = ({ user }) => {
     )
   })
   return (
-    <div>This is the feed
+    <div>
+      <div className='feed-header'>
+        <div className='image-holder'>
+          {!user.profileImage ? <img src={noProfileImage} alt="image" className="profile-image-bigger"/> : <img src={user.profileImage} alt="image" className="profile-image-bigger"/>}
+        </div>
+        <CreatePost user={user}/>
+      </div>
       {postsJSX}
     </div>
   )
