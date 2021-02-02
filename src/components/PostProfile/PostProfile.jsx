@@ -23,7 +23,7 @@ const PostProfile = ({ user }) => {
 
   const postsJSX = posts.map(post => {
     return (
-      <div key={post._id}>
+      <div key={post._id} className='post-individual'>
         <Moment format="MM-DD-YYYY">
           <div>
             {post.createdAt}
@@ -41,7 +41,9 @@ const PostProfile = ({ user }) => {
 
   return (
     <div className='post-container'>
-      You have been recognized {posts.length} times.
+      <div className='post-container-heading'>
+        You have been recognized {posts.length} times.
+      </div>
       {posts ? postsJSX : 'You have no recognitions yet.'}
     </div>
   )
