@@ -69,7 +69,7 @@ const Home = (props) => {
 
   const users = userArray.map((user) => {
     return (
-      <div key={user}>{user}<br/></div>
+      <div key={user} className='chat-user'>{user}<br/></div>
     )
   })
   return (
