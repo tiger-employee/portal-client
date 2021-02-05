@@ -10,6 +10,7 @@ import './user-profile.styles.scss'
 import S3FileUpload from 'react-s3'
 import PostProfile from '../../components/PostProfile/PostProfile.jsx'
 import CreatePost from '../../components/CreatePost/CreatePost'
+import GratitudeGiven from '../../components/GratitudeGiven/GratitudeGiven'
 
 const Profile = ({ user }) => {
   const [meditations, setMeditations] = useState([])
@@ -77,7 +78,7 @@ const Profile = ({ user }) => {
           {user.email} <br/>
           {user.role} <br/>
           Meditated: {meditations.length} times. <br/>
-          Gratitude given:
+          <GratitudeGiven user={user}/>
         </div>
       </div>
       <Modal show={show} onHide={handleClose}>

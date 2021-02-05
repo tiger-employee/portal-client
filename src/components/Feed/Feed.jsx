@@ -17,7 +17,8 @@ const Feed = ({ user }) => {
         Authorization: `Token token=${user.token}`
       },
       params: {
-        recipient: 'all'
+        recipient: 'all',
+        owner: 'all'
       }
     })
       .then((res) => setPosts(res.data.posts))

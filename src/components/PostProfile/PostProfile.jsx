@@ -15,12 +15,13 @@ const PostProfile = ({ user }) => {
         Authorization: `Token token=${user.token}`
       },
       params: {
-        user: user._id
+        recipient: user._id,
+        owner: 'all'
       }
     })
       .then((res) => setPosts(res.data.posts))
   }, [])
-
+  console.log(posts)
   const postsJSX = posts.map(post => {
     return (
       <div key={post._id} className='post-individual'>
