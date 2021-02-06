@@ -56,3 +56,13 @@
 .right-container {
   padding-bottom: 25px;
 }
+
+.change-password-link {
+  font-weight: bold;
+  font-size: 12px;
+  padding: 3px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

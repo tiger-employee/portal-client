@@ -11,14 +11,18 @@ import S3FileUpload from 'react-s3'
 import PostProfile from '../../components/PostProfile/PostProfile.jsx'
 import CreatePost from '../../components/CreatePost/CreatePost'
 import GratitudeGiven from '../../components/GratitudeGiven/GratitudeGiven'
+import ChangePassword from '../../components/ChangePassword/ChangePassword.js'
 
 const Profile = ({ user }) => {
   const [meditations, setMeditations] = useState([])
   const [getImage, setGetImage] = useState()
   const [show, setShow] = useState(false)
+  const [showChangePassword, setShowChangePassword] = useState(false)
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+
+  const handleChangePasswordShow = () => setShowChangePassword(false)
 
   const secret = process.env.REACT_APP_SECRET_KEY
   const access = process.env.REACT_APP_ACCESS_KEY
@@ -79,6 +83,7 @@ const Profile = ({ user }) => {
           {user.role} <br/>
           Meditated: {meditations.length} times. <br/>
           <GratitudeGiven user={user}/>
+          <div className='change-password-link' onClick={() => setShowChangePassword(true)}>Change Password</div>
         </div>
       </div>
       <Modal show={show} onHide={handleClose}>
@@ -108,6 +113,7 @@ const Profile = ({ user }) => {
           <PostProfile user={user}/>
         </div>
       </div>
+      <ChangePassword user={user} setShow={handleChangePasswordShow} show={showChangePassword}/>
     </div>
   )
 }
