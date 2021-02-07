@@ -32,7 +32,7 @@ const Feed = ({ user }) => {
           <div>
             To:
             {!post.recipient.profileImage ? <img src={noProfileImage} alt="image" className="profile-image-thumbnail"/> : <img src={post.recipient.profileImage} alt="image" className="profile-image-thumbnail"/>}
-            {post.recipient.firstName}
+            {post.recipient.firstName} {post.recipient.lastName}
           </div>
         </div>
         <div className='recognition-card-text'>
