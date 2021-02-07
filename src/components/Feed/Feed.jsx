@@ -29,6 +29,7 @@ const Feed = ({ user }) => {
       <div className='recognition-card' key={post._id}>
         <div className='recognition-card-header'>
           <Moment format="MM-DD-YYYY">{post.createdAt}</Moment>
+          To: {post.recipient.firstName}
         </div>
         <div className='recognition-card-text'>
           {post.text}
