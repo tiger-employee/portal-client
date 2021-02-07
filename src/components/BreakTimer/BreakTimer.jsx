@@ -3,9 +3,9 @@ import './break-timer.styles.scss'
 
 const BreakTimer = () => {
   const [ time, setTime ] = useState('')
-  const [ prompt, setPrompt ] = useState('')
+  const [ prompt, setPrompt ] = useState('Work time!')
 
-  const startTimer = (duration = 10) => {
+  const startTimer = (duration) => {
     setPrompt('')
     let timer = duration
     let minutes
@@ -24,7 +24,7 @@ const BreakTimer = () => {
   }
 
   useEffect(() => {
-    startTimer()
+    startTimer(1500)
   }, [])
 
   return (
@@ -36,7 +36,7 @@ const BreakTimer = () => {
         {prompt}
       </div>
       <div>
-        {!time || time === '00:00' ? <button onClick={() => startTimer()}>Click</button> : ''}
+        {!time || time === '00:00' ? <button onClick={() => startTimer(1500)}>Pomodoro 25</button> : <button onClick={() => setTimeout(() => startTimer(0))}>Cancel</button>}{!time || time === '00:00' ? <button onClick={() => startTimer(3120)}>Pomodoro 52</button> : <button onClick={() => clearInterval()}>Pause Timer</button>}
       </div>
     </div>
   )
