@@ -28,7 +28,7 @@ const Feed = ({ user }) => {
     return (
       <div className='recognition-card' key={post._id}>
         <div className='recognition-card-header'>
-          <Moment format="MM-DD-YYYY">{post.createdAt}</Moment>
+          <Moment format="MMMM Do YYYY">{post.createdAt}</Moment>
           <div>
             To:
             {!post.recipient.profileImage ? <img src={noProfileImage} alt="image" className="profile-image-thumbnail"/> : <img src={post.recipient.profileImage} alt="image" className="profile-image-thumbnail"/>}
