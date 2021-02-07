@@ -3,7 +3,7 @@ import Alert from 'react-bootstrap/Alert'
 
 import './AutoDismissAlert.scss'
 
-const AutoDismissAlert = (props) => {
+const AutoDismissAlert = ({ variant, heading, message }) => {
   const [show, setShow] = useState(true)
 
   useEffect(() => {
@@ -13,7 +13,6 @@ const AutoDismissAlert = (props) => {
   }, [])
 
   const handleClose = () => setShow(false)
-  const { variant, heading, message } = props
   return (
     <Alert
       dismissible
