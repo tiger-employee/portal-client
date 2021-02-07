@@ -11,6 +11,7 @@ import ChangePassword from '../ChangePassword/ChangePassword'
 import Home from '../../pages/Home/Home'
 import Profile from '../../pages/UserProfile/UserProfile'
 import Feed from '../../components/Feed/Feed'
+import Breaktimer from '../../components/BreakTimer/BreakTimer'
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -54,6 +55,9 @@ const App = () => {
         )} />
         <AuthenticatedRoute user={user} path='/change-password' render={() => (
           <ChangePassword msgAlert={msgAlert} user={user} />
+        )} />
+        <AuthenticatedRoute user={user} path='/' render={() => (
+          <Breaktimer user={user} />
         )} />
       </main>
     </Fragment>

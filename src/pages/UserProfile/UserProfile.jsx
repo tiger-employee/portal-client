@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import apiUrl from '../../apiConfig.js'
 import Quote from '../../components/Quote/Quote'
-import BreakTimer from '../../components/BreakTimer/BreakTimer'
 import Meditation from '../../components/Meditation/Meditation'
 import noProfileImage from './no-photo-avail.jpg'
 import Modal from 'react-bootstrap/Modal'
@@ -105,7 +104,6 @@ const Profile = ({ user }) => {
       <Quote/>
       <div className='profile-main'>
         <div className='left-container'>
-          <BreakTimer/>
           <Meditation user={user}/>
         </div>
         <div className='right-container'>
