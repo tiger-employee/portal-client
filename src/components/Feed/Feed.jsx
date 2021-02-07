@@ -29,13 +29,17 @@ const Feed = ({ user }) => {
       <div className='recognition-card' key={post._id}>
         <div className='recognition-card-header'>
           <Moment format="MM-DD-YYYY">{post.createdAt}</Moment>
-          To: {post.recipient.firstName}
+          <div>
+            To:
+            {!post.recipient.profileImage ? <img src={noProfileImage} alt="image" className="profile-image-thumbnail"/> : <img src={post.recipient.profileImage} alt="image" className="profile-image-thumbnail"/>}
+            {post.recipient.firstName}
+          </div>
         </div>
         <div className='recognition-card-text'>
           {post.text}
         </div>
         <div className='recognition-card-owner'>
-          -{`${post.owner.firstName} ${post.owner.lastName}`}
+          -{`${post.owner.firstName} ${post.owner.lastName}`}  {!post.owner.profileImage ? <img src={noProfileImage} alt="image" className="profile-image-thumbnail"/> : <img src={post.owner.profileImage} alt="image" className="profile-image-thumbnail"/>}
         </div>
       </div>
     )

@@ -30,6 +30,13 @@
   box-shadow: 10px 10px 10px silver;
 }
 
+.profile-image-thumbnail {
+  height: 40px;
+  border-radius: 50%;
+  margin: 10px;
+  box-shadow: 2px 2px 2px silver;
+}
+
 .feed-header {
   display: flex;
   justify-content: space-around;
