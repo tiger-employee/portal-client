@@ -56,10 +56,10 @@ const App = () => {
         <AuthenticatedRoute user={user} path='/change-password' render={() => (
           <ChangePassword msgAlert={msgAlert} user={user} />
         )} />
-        <AuthenticatedRoute user={user} path='/' render={() => (
-          <Breaktimer user={user} />
-        )} />
       </main>
+      <AuthenticatedRoute user={user} path='/' render={() => (
+        <Breaktimer user={user} />
+      )} />
     </Fragment>
   )
 }

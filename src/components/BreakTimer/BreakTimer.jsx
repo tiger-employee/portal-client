@@ -16,7 +16,6 @@ const BreakTimer = () => {
       minutes = minutes < 10 ? '0' + minutes : minutes
       seconds = seconds < 10 ? '0' + seconds : seconds
       setTime(minutes + ':' + seconds)
-
       if (--timer < 0) {
         clearInterval(countdown)
         setPrompt('Take a break!')
