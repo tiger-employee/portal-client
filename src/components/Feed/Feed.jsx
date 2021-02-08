@@ -47,8 +47,12 @@ const Feed = ({ user }) => {
   return (
     <div>
       <div className='feed-header'>
-        <div className='image-holder'>
-          {!user.profileImage ? <img src={noProfileImage} alt="image" className="profile-image-bigger"/> : <img src={user.profileImage} alt="image" className="profile-image-bigger"/>}
+        <div className='user-information'>
+          <div className='image-holder'>
+            {!user.profileImage ? <img src={noProfileImage} alt="image" className="profile-image-bigger"/> : <img src={user.profileImage} alt="image" className="profile-image-bigger"/>}
+          </div>
+          {user.firstName} {user.lastName} <br/>
+          {user.role}
         </div>
         <CreatePost user={user}/>
       </div>
