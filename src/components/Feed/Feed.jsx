@@ -37,9 +37,9 @@ const Feed = ({ user }) => {
         </div>
         <div className='recognition-card-text'>
           {post.text}
-        </div>
-        <div className='recognition-card-owner'>
-          -{`${post.owner.firstName} ${post.owner.lastName}`}  {!post.owner.profileImage ? <img src={noProfileImage} alt="image" className="profile-image-thumbnail"/> : <img src={post.owner.profileImage} alt="image" className="profile-image-thumbnail"/>}
+          <div className='recognition-card-owner'>
+            -{`${post.owner.firstName} ${post.owner.lastName}`}  {!post.owner.profileImage ? <img src={noProfileImage} alt="image" className="profile-image-thumbnail"/> : <img src={post.owner.profileImage} alt="image" className="profile-image-thumbnail"/>}
+          </div>
         </div>
       </div>
     )

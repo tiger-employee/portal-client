@@ -2,19 +2,21 @@
   padding: 25px;
   border: 2px solid gray;
   box-shadow: 10px 10px 10px silver;
-  background: lightgreen;
+  background: lightgray;
   border-radius: 5px;
   margin: 20px;
 }
 
 .recognition-card-header {
   padding: 5px;
+  padding-left: 25px;
   border-bottom: 2px silver solid;
-  background: lightgray;
+  background: lightsteelblue;
 }
 
 .recognition-card-text {
   padding: 5px;
+  padding-left: 25px;
   border-bottom: 2px silver solid;
   background: whitesmoke;
 }
@@ -39,15 +41,14 @@
 
 .feed-header {
   display: flex;
-  justify-content: space-around;
-  border: 2px gray solid;
-  box-shadow: 10px 10px 10px silver;
+  justify-content: space-between;
   padding: 25px;
-  background:whitesmoke;
 }
 
 .user-information {
   border: gray solid 2px;
   padding: 0px 50px 50px 50px;
   box-shadow: 10px 10px 10px silver;
+  margin: 0 auto;
+  background: whitesmoke;
 }
