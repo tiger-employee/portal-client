@@ -120,13 +120,13 @@ const Home = (props) => {
   const messages = messageArray.map((messageObj) => {
     if (messageObj.isImage) {
       return (
-        props.user.email.includes(messageObj.name) ? <div key={messageObj._id}><span className='chat-user-self'>{messageObj.name}:</span>  <img className='image-chat' src={messageObj.text} alt='image'/><br/></div>
-          : <div key={messageObj._id}><span className='chat-user-other'>{messageObj.name}:</span>   <img className='image-chat' src={messageObj.text} alt='image'/><br/></div>
+        props.user.email.includes(messageObj.name) ? <div key={messageObj._id} className='message-container-self'><span className='chat-user-self'>{messageObj.name}:</span>  <img className='image-chat' src={messageObj.text} alt='image'/><br/></div>
+          : <div key={messageObj._id} className='message-container-other'><span className='chat-user-other'>{messageObj.name}:</span>   <img className='image-chat' src={messageObj.text} alt='image'/><br/></div>
       )
     } else {
       return (
-        props.user.email.includes(messageObj.name) ? <div key={messageObj._id}><span className='chat-user-self'>{messageObj.name}:</span>  {messageObj.text}<br/></div>
-          : <div key={messageObj._id}><span className='chat-user-other'>{messageObj.name}:</span>  {messageObj.text}<br/></div>
+        props.user.email.includes(messageObj.name) ? <div key={messageObj._id} className='message-container-self'><span className='chat-user-self'>{messageObj.name}:</span>  {messageObj.text}<br/></div>
+          : <div key={messageObj._id} className='message-container-other'><span className='chat-user-other'>{messageObj.name}:</span>  {messageObj.text}<br/></div>
       )
     }
   })
@@ -136,6 +136,7 @@ const Home = (props) => {
       props.user.email.includes(chatUser) ? <div key={chatUser} className='chat-user-self'>{chatUser}<br/></div> : <div key={chatUser} className='chat-user-other'>{chatUser}<br/></div>
     )
   })
+  console.log(users)
   return (
     <div>
       <div className='chat-container'>

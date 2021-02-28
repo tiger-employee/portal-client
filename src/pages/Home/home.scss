@@ -34,7 +34,7 @@
     }
     .chat-user-other {
       padding: 10px;
-      color: red;
+      color: black;
     }
 }
 
@@ -60,5 +60,21 @@
 .image-chat {
   width: 250px;
   height: auto;
+}
+
+.message-container-self {
+  background: silver;
+  border: 2px solid gray;
+  border-radius: 15px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.message-container-other {
+  background: lightsteelblue;
+  border: 2px solid gray;
+  border-radius: 15px;
+  margin: 10px;
+  padding: 10px;
 }
 
