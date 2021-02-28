@@ -120,8 +120,8 @@ const Home = (props) => {
   const messages = messageArray.map((messageObj) => {
     if (messageObj.isImage) {
       return (
-        props.user.email.includes(messageObj.name) ? <div key={messageObj._id}><span className='chat-user-self'>{messageObj.name}:</span>  <img src={messageObj.text} alt='image'/><br/></div>
-          : <div key={messageObj._id}><span className='chat-user-other'>{messageObj.name}:</span>   <img src={messageObj.text} alt='image'/><br/></div>
+        props.user.email.includes(messageObj.name) ? <div key={messageObj._id}><span className='chat-user-self'>{messageObj.name}:</span>  <img className='image-chat' src={messageObj.text} alt='image'/><br/></div>
+          : <div key={messageObj._id}><span className='chat-user-other'>{messageObj.name}:</span>   <img className='image-chat' src={messageObj.text} alt='image'/><br/></div>
       )
     } else {
       return (
