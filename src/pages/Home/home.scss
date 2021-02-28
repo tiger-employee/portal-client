@@ -22,7 +22,7 @@
       width: 25%;
       overflow: scroll;
       text-align: center;
-      background-color: rgba(102, 153, 244, 0.3);
+      background-color: rgba(176, 196, 222, .7);
 
       .chat-user {
         padding: 10px;
@@ -41,7 +41,7 @@
 .emoji-input {
   padding: 10px;
   display: flex;
-  background-color: rgba(102, 153, 244, 0.3);
+  background-color: rgba(176, 196, 222, .7);
   border-radius: 10px;
   border: solid gray 2px;
   box-shadow: 10px 10px 10px silver;
@@ -63,7 +63,7 @@
 }
 
 .message-container-self {
-  background: silver;
+  background:radial-gradient(white, rgba(189, 203, 221, 0.5)) ;
   border: 2px solid gray;
   border-radius: 15px;
   margin: 10px;
@@ -71,7 +71,7 @@
 }
 
 .message-container-other {
-  background: lightsteelblue;
+  background:radial-gradient(white, rgba(255, 203, 221, 0.5)) ;
   border: 2px solid gray;
   border-radius: 15px;
   margin: 10px;
