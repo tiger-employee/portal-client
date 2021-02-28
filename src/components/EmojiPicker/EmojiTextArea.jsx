@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Smiley from './icon-emotion-happy'
 import Emojis from './Emojis'
+import { BiImageAdd } from 'react-icons/bi'
 import './emoji.scss'
 
 const EmojiTextArea = ({ handleChange, setText, editValue }) => {
@@ -24,6 +25,7 @@ const EmojiTextArea = ({ handleChange, setText, editValue }) => {
   return (
     <div className = 'Emoji-Textarea'>
       <textarea rows={2} onChange = {handleText} value = {editValue} name='content'></textarea>
+      <BiImageAdd/>
       <div className = 'Emoji'>
         { showEmojis
           ? <div className = 'Emoji-Grid'>

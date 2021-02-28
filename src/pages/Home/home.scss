@@ -40,9 +40,20 @@
 
 .emoji-input {
   padding: 10px;
+  display: flex;
   background-color: rgba(102, 153, 244, 0.3);
   border-radius: 10px;
   border: solid gray 2px;
   box-shadow: 10px 10px 10px silver;
+}
+
+.image-input {
+  padding: 6px;
+  color: gray;
+  font-size: 1.8em;
+}
+
+.image-input:hover {
+  cursor: pointer;
 }
 

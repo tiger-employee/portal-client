@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import InputEmoji from 'react-input-emoji'
+import { BiImageAdd } from 'react-icons/bi'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import { useImmer } from 'use-immer'
@@ -89,6 +90,7 @@ const Home = (props) => {
           onEnter={sendMessage}
           placeholder='Type a message'
         />
+        <div className='image-input' onClick={() => console.log('add Image!')}><BiImageAdd/></div>
       </div>
     </div>
   )
