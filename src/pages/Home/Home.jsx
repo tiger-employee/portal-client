@@ -56,7 +56,6 @@ const Home = (props) => {
         .then((data) => {
           const updatedMessage = { name: props.user.email, text: data.location, owner: props.user.id, isImage: true }
           setGetImage(data.location)
-          console.log(data.location)
           return axios({
             url: `${apiUrl}/messages/`,
             method: 'POST',
