@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import InputEmoji from 'react-input-emoji'
-import { BiImageAdd } from 'react-icons/bi'
+import { BiImageAdd, BiVideoPlus } from 'react-icons/bi'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import { useImmer } from 'use-immer'
@@ -271,30 +271,32 @@ const Home = (props) => {
           onChange={onFileChange}
           style={{ display: 'none' }}
         />
-        <button onClick={onFileUploadClick}>Send Video</button>
+        <div className='image-input' onClick={onFileUploadClick}><BiVideoPlus/></div>
         <input
           type="file"
           ref={hiddenFileInput}
           onChange={onFileChange}
           style={{ display: 'none' }}
         />
-        <button onClick={handleVideoOpen}>Video</button>
+        <button onClick={handleVideoOpen}>WebCam Record</button>
         <Modal
           show={showModal}
           onHide={handleClose}
           data-backdrop="true"
           keyboard={false}
         >
-          <Modal.Body className="update-message-container">
-            <Webcam audio={true} ref={webcamRef} />
-            {capturing ? (
-              <button onClick={handleStopCaptureClick}>Stop Capture</button>
-            ) : (
-              <button onClick={handleStartCaptureClick}>Start Capture</button>
-            )}
-            {recordedChunks.length > 0 && (
-              <button onClick={handleDownload}>Download</button>
-            )}
+          <Modal.Body className='webcam-container'>
+            <Webcam audio={true} ref={webcamRef} width={'350px'}/>
+            <div>
+              {capturing ? (
+                <button onClick={handleStopCaptureClick}>Stop Capture</button>
+              ) : (
+                <button onClick={handleStartCaptureClick}>Start Capture</button>
+              )}
+              {recordedChunks.length > 0 && (
+                <button onClick={handleDownload}>Download</button>
+              )}
+            </div>
           </Modal.Body>
         </Modal>
       </div>
