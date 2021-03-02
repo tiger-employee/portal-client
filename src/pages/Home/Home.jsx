@@ -8,6 +8,7 @@ import S3FileUpload from 'react-s3'
 import Webcam from 'react-webcam'
 import Modal from 'react-bootstrap/Modal'
 import io from 'socket.io-client'
+import ScrollToBottom from 'react-scroll-to-bottom'
 import './home.scss'
 
 const Home = (props) => {
@@ -87,8 +88,36 @@ const Home = (props) => {
         .catch((err) => {
           alert(err)
         })
+    } else if (event.target.files[0].type === 'video/mp4') {
+      S3FileUpload.uploadFile(event.target.files[0], config)
+        .then((data) => {
+          const updatedMessage = { name: props.user.email, text: data.location, owner: props.user.id, isVideo: true }
+          setGetImage(data.location)
+          return axios({
+            url: `${apiUrl}/messages/`,
+            method: 'POST',
+            headers: {
+              'Authorization': `Token token=${props.user.token}`
+            },
+            data: {
+              message: updatedMessage
+            }
+          })
+        })
+        .then(response => {
+          openSocket.emit('sendMessage', response.data.message)
+          console.log(response.data.message)
+          setMessageArray(draft => {
+            draft.push(response.data.message)
+          })
+          return response.data.message
+        })
+        .then(console.log(getImage, ' loaded successfully'))
+        .catch((err) => {
+          alert(err)
+        })
     } else {
-      alert('Please choose an image file')
+      alert('Please choose an appropriate file')
     }
   }
 
@@ -204,8 +233,8 @@ const Home = (props) => {
       )
     } else if (messageObj.isVideo) {
       return (
-        props.user.email.includes(messageObj.name) ? <div key={messageObj._id} className='message-container-self'><span className='chat-user-self'>{messageObj.name}:</span>  <embed type='video/webm' className='image-chat' src={messageObj.text} alt='image'/><br/></div>
-          : <div key={messageObj._id} className='message-container-other'><span className='chat-user-other'>{messageObj.name}:</span>   <embed type='video/webm' className='image-chat' src={messageObj.text} alt='image'/><br/></div>
+        props.user.email.includes(messageObj.name) ? <div key={messageObj._id} className='message-container-self'><span className='chat-user-self'>{messageObj.name}:</span>  <video type='video/mp4' controls className='video-chat' src={messageObj.text} alt='image'/><br/></div>
+          : <div key={messageObj._id} className='message-container-other'><span className='chat-user-other'>{messageObj.name}:</span>   <video type='video/mp4' className='video-chat' src={messageObj.text} alt='image'/><br/></div>
       )
     } else {
       return (
@@ -224,9 +253,7 @@ const Home = (props) => {
   return (
     <div>
       <div className='chat-container'>
-        <div className='chat-content'>
-          {messages}
-        </div>
+        <ScrollToBottom className='chat-content'>{messages}</ScrollToBottom>
         <div className='chat-users'>
           {users}
         </div>
@@ -238,6 +265,13 @@ const Home = (props) => {
           placeholder='Type a message'
         />
         <div className='image-input' onClick={onFileUploadClick}><BiImageAdd/></div>
+        <input
+          type="file"
+          ref={hiddenFileInput}
+          onChange={onFileChange}
+          style={{ display: 'none' }}
+        />
+        <button onClick={onFileUploadClick}>Send Video</button>
         <input
           type="file"
           ref={hiddenFileInput}
