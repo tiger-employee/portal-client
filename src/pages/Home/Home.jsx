@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import InputEmoji from 'react-input-emoji'
 import { BiImageAdd } from 'react-icons/bi'
 import axios from 'axios'
 import apiUrl from '../../apiConfig'
 import { useImmer } from 'use-immer'
 import S3FileUpload from 'react-s3'
-
+import Webcam from 'react-webcam'
+import Modal from 'react-bootstrap/Modal'
 import io from 'socket.io-client'
 import './home.scss'
 
@@ -14,8 +15,15 @@ const Home = (props) => {
   const [messageArray, setMessageArray] = useImmer([])
   const [userArray, setUserArray] = useImmer([])
   const [getImage, setGetImage] = useState()
-  const hiddenFileInput = React.useRef(null)
+  const [showModal, setShowModal] = useState(false)
+  const webcamRef = useRef(null)
+  const mediaRecorderRef = useRef(null)
+  const [capturing, setCapturing] = useState(false)
+  const [recordedChunks, setRecordedChunks] = useState([])
 
+  const hiddenFileInput = React.useRef(null)
+  const handleVideoOpen = () => setShowModal(true)
+  const handleClose = () => setShowModal(false)
   const sendMessage = (messageContent) => {
     const updatedMessage = { name: props.user.email, text: messageContent, owner: props.user.id }
     axios({
@@ -84,6 +92,78 @@ const Home = (props) => {
     }
   }
 
+  const handleStartCaptureClick = React.useCallback(() => {
+    setCapturing(true)
+    mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
+      mimeType: 'video/webm'
+    })
+    mediaRecorderRef.current.addEventListener(
+      'dataavailable',
+      handleDataAvailable
+    )
+    mediaRecorderRef.current.start()
+  }, [webcamRef, setCapturing, mediaRecorderRef])
+
+  const handleDataAvailable = React.useCallback(
+    ({ data }) => {
+      if (data.size > 0) {
+        setRecordedChunks((prev) => prev.concat(data))
+      }
+    },
+    [setRecordedChunks]
+  )
+
+  const handleStopCaptureClick = React.useCallback(() => {
+    mediaRecorderRef.current.stop()
+    setCapturing(false)
+  }, [mediaRecorderRef, webcamRef, setCapturing])
+
+  const handleDownload = React.useCallback(() => {
+    if (recordedChunks.length) {
+      const blob = new Blob(recordedChunks, {
+        type: 'video/mp4'
+      })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      document.body.appendChild(a)
+      a.style = 'display: none'
+      a.href = url
+      a.download = `${props.user.email}-webcam-stream-capture.webm`
+      a.click()
+      console.log(a)
+      window.URL.revokeObjectURL(url)
+      setRecordedChunks([])
+      console.log(recordedChunks)
+      S3FileUpload.uploadFile(a.download, config)
+        .then((data) => {
+          const updatedMessage = { name: props.user.email, text: data.location, owner: props.user.id, isVideo: true }
+          setGetImage(data.location)
+          return axios({
+            url: `${apiUrl}/messages/`,
+            method: 'POST',
+            headers: {
+              'Authorization': `Token token=${props.user.token}`
+            },
+            data: {
+              message: updatedMessage
+            }
+          })
+        })
+        .then(response => {
+          openSocket.emit('sendMessage', response.data.message)
+          console.log(response.data.message)
+          setMessageArray(draft => {
+            draft.push(response.data.message)
+          })
+          return response.data.message
+        })
+        .then(console.log(getImage, ' loaded successfully'))
+        .catch((err) => {
+          alert(err)
+        })
+    }
+  }, [recordedChunks])
+
   useEffect(() => {
     const socket = io('http://localhost:3000')
     setOpenSocket(socket)
@@ -122,6 +202,11 @@ const Home = (props) => {
         props.user.email.includes(messageObj.name) ? <div key={messageObj._id} className='message-container-self'><span className='chat-user-self'>{messageObj.name}:</span>  <img className='image-chat' src={messageObj.text} alt='image'/><br/></div>
           : <div key={messageObj._id} className='message-container-other'><span className='chat-user-other'>{messageObj.name}:</span>   <img className='image-chat' src={messageObj.text} alt='image'/><br/></div>
       )
+    } else if (messageObj.isVideo) {
+      return (
+        props.user.email.includes(messageObj.name) ? <div key={messageObj._id} className='message-container-self'><span className='chat-user-self'>{messageObj.name}:</span>  <embed type='video/webm' className='image-chat' src={messageObj.text} alt='image'/><br/></div>
+          : <div key={messageObj._id} className='message-container-other'><span className='chat-user-other'>{messageObj.name}:</span>   <embed type='video/webm' className='image-chat' src={messageObj.text} alt='image'/><br/></div>
+      )
     } else {
       return (
         props.user.email.includes(messageObj.name) ? <div key={messageObj._id} className='message-container-self'><span className='chat-user-self'>{messageObj.name}:</span>  {messageObj.text}<br/></div>
@@ -159,6 +244,25 @@ const Home = (props) => {
           onChange={onFileChange}
           style={{ display: 'none' }}
         />
+        <button onClick={handleVideoOpen}>Video</button>
+        <Modal
+          show={showModal}
+          onHide={handleClose}
+          data-backdrop="true"
+          keyboard={false}
+        >
+          <Modal.Body className="update-message-container">
+            <Webcam audio={true} ref={webcamRef} />
+            {capturing ? (
+              <button onClick={handleStopCaptureClick}>Stop Capture</button>
+            ) : (
+              <button onClick={handleStartCaptureClick}>Start Capture</button>
+            )}
+            {recordedChunks.length > 0 && (
+              <button onClick={handleDownload}>Download</button>
+            )}
+          </Modal.Body>
+        </Modal>
       </div>
     </div>
   )
